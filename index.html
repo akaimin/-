@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tax Calculator</title>
+    <link rel="stylesheet" href="style.css" />
+    <script>
+      const rate = [150000, 300000, 500000, 1000000, 2000000, 5000000];
+      const tax = [0, 0.05, 0.1, 0.15, 0.2, 0.25, 0.3, 0.35];
+      function addIncome() {
+        const income = document.getElementById("income").value;
+        const incomeInputContainer = document.getElementById(
+          "income-input-container"
+        );
+        const incomeInput = document.createElement("input");
+        incomeInput.type = "text";
+        incomeInput.value = income;
+        incomeInput.readOnly = true;
+        incomeInput.placeholder = "Enter your income";
+        incomeInput.className = "income-input";
+        incomeInputContainer.appendChild(incomeInput);
+        document.getElementById("income").value = "";
+      }
+      function removeIncome() {
+        const incomeInputContainer = document.getElementById(
+          "income-input-container"
+        );
+        const incomeInputs = incomeInputContainer.getElementsByTagName("input");
+        if (incomeInputs.length > 1) {
+          incomeInputContainer.removeChild(
+            incomeInputs[incomeInputs.length - 1]
+          );
+        }
+      }
+      function calculateTax() {
+        const incomeInputContainer = document.getElementById(
+          "income-input-container"
+        );
+        const incomeInputs = incomeInputContainer.getElementsByTagName("input");
+        let totalIncome = 0;
+        for (let i = 0; i < incomeInputs.length; i++) {
+          if (isNaN(parseInt(incomeInputs[i].value))) {
+            continue;
+          }
+          console.log(parseInt(incomeInputs[i].value), incomeInputs[i].value);
+          totalIncome += parseInt(incomeInputs[i].value);
+        }
+        console.log(totalIncome);
+        let taxAmount = 0;
+        let remainingIncome = totalIncome;
+        for (let i = 0; i < rate.length; i++) {
+          if (remainingIncome > rate[i]) {
+            taxAmount += rate[i] * tax[i];
+            remainingIncome -= rate[i];
+          } else {
+            taxAmount += remainingIncome * tax[i];
+            break;
+          }
+        }
+        if (remainingIncome > 0) {
+          taxAmount += remainingIncome * tax[tax.length - 1];
+        }
+        console.log(taxAmount);
+        document.getElementById("net-income").innerText = totalIncome;
+        document.getElementById("tax-percent").innerText = (
+          (taxAmount / totalIncome) *
+          100
+        ).toFixed(2);
+        document.getElementById("total-tax").innerText = taxAmount;
+      }
+    </script>
+  </head>
+  <body>
+    <div class="container">
+      <div class="income-box">
+        <div class="income-input-box" id="income-input-container">
+          <input
+            type="text"
+            id="income"
+            class="income-input"
+            placeholder="Enter your income"
+          />
+        </div>
+        <div class="income-add-remove">
+          <button class="button-income" onclick="addIncome()">
+            <svg
+              fill="#000000"
+              width="32px"
+              height="32px"
+              viewBox="0 0 22 22"
+              xmlns="http://www.w3.org/2000/svg"
+              id="memory-plus-circle-fill"
+            >
+              <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+              <g
+                id="SVGRepo_tracerCarrier"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              ></g>
+              <g id="SVGRepo_iconCarrier">
+                <path
+                  d="M15,21H7V20H5V19H4V18H3V17H2V15H1V7H2V5H3V4H4V3H5V2H7V1H15V2H17V3H18V4H19V5H20V7H21V15H20V17H19V18H18V19H17V20H15ZM12,16V12H16V10H12V6H10V10H6V12H10V16Z"
+                ></path>
+              </g>
+            </svg>
+          </button>
+          <button class="button-income" onclick="removeIncome()">
+            <svg
+              fill="#000000"
+              width="32px"
+              height="32px"
+              viewBox="0 0 22 22"
+              xmlns="http://www.w3.org/2000/svg"
+              id="memory-minus-circle-fill"
+            >
+              <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+              <g
+                id="SVGRepo_tracerCarrier"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              ></g>
+              <g id="SVGRepo_iconCarrier">
+                <path
+                  d="M15 21H7V20H5V19H4V18H3V17H2V15H1V7H2V5H3V4H4V3H5V2H7V1H15V2H17V3H18V4H19V5H20V7H21V15H20V17H19V18H18V19H17V20H15M16 12V10H6V12Z"
+                ></path>
+              </g>
+            </svg>
+          </button>
+        </div>
+      </div>
+      <div class="result-box">
+        <div class="result">
+          <h2>Net Income</h2>
+          <p id="net-income">0</p>
+        </div>
+        <div class="result">
+          <h2>Tax percent</h2>
+          <p id="tax-percent">0</p>
+        </div>
+        <div class="result">
+          <h2>Total Tax</h2>
+          <p id="total-tax">0</p>
+        </div>
+      </div>
+    </div>
+    <div class="calculate-box">
+      <button class="button-calculate" onclick="calculateTax()">
+        Calculate Tax
+      </button>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,59 @@
+.income-box {
+  background-color: #9f8383;
+  border: 1px solid #c8aaaa;
+  border-radius: 5px;
+  padding: 10px;
+  width: 40%;
+  min-height: 200px;
+  margin-bottom: 10px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.button-income {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.income-add-remove {
+  display: flex;
+  flex-direction: column;
+  /* justify-content: center; */
+  /* align-items: center; */
+  gap: 10px;
+}
+
+.income-input {
+  width: 200px;
+  height: 30px;
+}
+.income-input-box {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+.container {
+  display: flex;
+  gap: 10px;
+}
+.result-box {
+  background-color: #9f8383;
+  padding: 10px;
+  border-radius: 5px;
+  min-height: 150px;
+  margin-bottom: 10px;
+  border: 1px solid #c8aaaa;
+}
+.result {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 10px;
+}
+
+body {
+  background-color: #574964;
+}
